@@ -10,12 +10,19 @@ def post_list_and_create(request):
     form = PostForm(request.POST or None)
     #qs = Post.objects.all()
 
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest': # equivalent to request.is_ajax()
         if form.is_valid():
             author = Profile.objects.get(user=request.user)
             instance = form.save(commit=False)
             instance.author = author
             instance.save()
+            return JsonResponse({
+                'title': instance.title,
+                'body': instance.body,
+                'author': instance.author.user.username,
+                'id': instance.id,
+            })
+
     context = {
         'form': form,
     }
@@ -24,29 +31,30 @@ def post_list_and_create(request):
 
 
 def load_posts_data_view(request, num_posts):
-    visible = 3
-    upper = num_posts # 9   
-    lower = upper - visible # 6
-    size = Post.objects.all().count()
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest': # equivalent to request.is_ajax()
+        visible = 3
+        upper = num_posts # 9   
+        lower = upper - visible # 6
+        size = Post.objects.all().count()
 
-    qs = Post.objects.all()
-    data = []
-    for obj in qs:
-        item = {
-            'id': obj.id,
-            'title': obj.title,
-            'body': obj.body,
-            'liked': True if request.user in obj.liked.all() else False,
-            'count': obj.like_count,
-            'author': obj.author.user.username,
-        }
-        data.append(item)
-    return JsonResponse({'data': data[lower:upper], 'size': size})
+        qs = Post.objects.all()
+        data = []
+        for obj in qs:
+            item = {
+                'id': obj.id,
+                'title': obj.title,
+                'body': obj.body,
+                'liked': True if request.user in obj.liked.all() else False,
+                'count': obj.like_count,
+                'author': obj.author.user.username,
+            }
+            data.append(item)
+        return JsonResponse({'data': data[lower:upper], 'size': size})
 
 def like_unlike_post(request):
     #if request.is_ajax(): this didnt work
     #if request.method == 'POST': this also didnt work
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest': # equivalent to request.is_ajax()
         pk = request.POST.get('pk')
         obj = Post.objects.get(pk=pk)
         if request.user in obj.liked.all():
