@@ -6,6 +6,7 @@ from .views import (
     load_posts_data_view,
     like_unlike_post,
     post_detail,
+    post_detail_data,
 
 )
 
@@ -17,4 +18,5 @@ urlpatterns = [
     path('<pk>/', post_detail, name='post-detail'),
     
     path('data/<int:num_posts>/', load_posts_data_view, name='post-data'),
+    path('<pk>/data/', post_detail_data, name='post-detail-data'),
 ]
