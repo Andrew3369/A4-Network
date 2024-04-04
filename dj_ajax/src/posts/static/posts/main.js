@@ -13,6 +13,8 @@ const csrf = document.getElementsByName('csrfmiddlewaretoken')
 const alertBox = document.getElementById('alert-box')
 console.log('csrf', csrf[0].value)
 
+const url = window.location.href
+
 
 const getCookie =(name) => {
     let cookieValue = null;
@@ -80,7 +82,7 @@ const getData = () => {
                         <div class="card-footer">
                                 <div class="row">
                                     <div class="col-2">
-                                        <a href="#" class="btn btn-primary">Details</a>
+                                        <a href="${url}${element.id}" class="btn btn-primary">Details</a>
                                     </div>
                                     <div class="col-2">
                                         <form class="like-unlike-forms" data-form-id="${element.id}">
