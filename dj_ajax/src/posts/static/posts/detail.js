@@ -1,5 +1,5 @@
 console.log("hello world detail")
-
+const postsBox = document.getElementById('post-box')
 const backBtn = document.getElementById('back-btn')
 const deleteBtn = document.getElementById('delete-btn')
 const updateBtn = document.getElementById('update-btn')
@@ -31,7 +31,22 @@ $.ajax({
             deleteBtn.classList.remove('not-visible')
         }
 
+        const titleEl = document.createElement('h3')
+        titleEl.setAttribute('class', 'mt-3')
+
+        const bodyEl = document.createElement('p')
+        bodyEl.setAttribute('class', 'mt-1')
+
+        titleEl.textContent = data.title
+        bodyEl.textContent = data.body
+
+        titleEl.setAttribute('class', 'mt-3')
+
+        postsBox.appendChild(titleEl)
+        postsBox.appendChild(bodyEl)
+
         spinnerBox.classList.add('not-visible')
+
     },
     error: function(error)
     {
