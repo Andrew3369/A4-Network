@@ -98,13 +98,13 @@ def update_post(request, pk):
         obj.title = new_title
         obj.body = new_body
         obj.save()
-    return JsonResponse({
-        'title': new_title,
-        'body': new_body,
-    })
+        return JsonResponse({
+            'title': new_title,
+            'body': new_body,
+        })
 
 def delete_post(request, pk):
     obj = Post.objects.get(pk=pk)
     if request.headers.get('x-requested-with') == 'XMLHttpRequest': # equivalent to request.is_ajax()
         obj.delete()
-    return JsonResponse({})
+        return JsonResponse({})
