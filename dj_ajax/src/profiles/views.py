@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post
+from .models import Profile
 from .forms import ProfileForm
 from django.http import HttpRequest, JsonResponse, HttpResponse
 # Create your views here.

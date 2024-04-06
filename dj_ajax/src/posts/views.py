@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Post
+from .models import Photo
 from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.core import serializers
 from .forms import PostForm
