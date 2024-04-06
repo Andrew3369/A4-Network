@@ -19,7 +19,7 @@ posts
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close add-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Post form -->
@@ -28,12 +28,12 @@ posts
                         <!-- {{form.as_p}} -->
                         {{form|crispy}}
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
-                            <button type="submit" class="btn btn-green">+add</button>
+                            <button type="button" class="btn btn-danger add-modal-close" data-bs-dismiss="modal">close</button>
+                            <button type="submit" id="add-btn" class="btn btn-green">+add</button>
                         </div>
                     </form>
                     <!-- Drop zone Upload Files -->
-                    <form action="/upload" class="dropzone dz">
+                    <form action="/upload" id="my-dropzone" class="dropzone dz">
                         {%csrf_token%}
                         <div class="fallback">
                             <input name="file" type="file" multiple />

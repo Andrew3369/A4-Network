@@ -8,6 +8,7 @@ from .views import (
     post_detail_data,
     delete_post,
     update_post,
+    image_upload_view,
 
 )
 
